@@ -1,5 +1,6 @@
 package hr.spring.race.application.command.service.service;
 
+import hr.spring.race.application.command.service.model.event.RaceEvent;
 import hr.spring.race.application.command.service.repository.RaceRepository;
 import hr.spring.race.application.command.service.model.entity.Race;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class RaceServiceImpl implements RaceService{
     @Override
     public Race createRace(Race race) {
         Race createdRace = raceRepository.save(race);
-        messagingTemplate.convertAndSend("/topic/race-events", "CREATE: " + createdRace.getId());
+        messagingTemplate.convertAndSend("/topic/race-events", new RaceEvent("CREATE", createdRace));
         return createdRace;
     }
 
@@ -32,7 +33,7 @@ public class RaceServiceImpl implements RaceService{
         if (raceRepository.existsById(id)) {
             race.setId(id);
             Race updatedRace = raceRepository.save(race);
-            messagingTemplate.convertAndSend("/topic/race-events", "UPDATE: " + updatedRace.getId());
+            messagingTemplate.convertAndSend("/topic/race-events", new RaceEvent("UPDATE", updatedRace));
             return updatedRace;
         }
         return null;
@@ -41,8 +42,9 @@ public class RaceServiceImpl implements RaceService{
     @Override
     public Boolean deleteRace(UUID id) {
         if (raceRepository.existsById(id)) {
+            Race deletedRace = raceRepository.findById(id).orElse(null);
             raceRepository.deleteById(id);
-            messagingTemplate.convertAndSend("/topic/race-events", "DELETE: " + id);
+            messagingTemplate.convertAndSend("/topic/race-events", new RaceEvent("DELETE", deletedRace));
             return true;
         }
         return false;
