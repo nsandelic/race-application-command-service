@@ -1,4 +1,4 @@
-package hr.spring.race.application.command.service.util.enums;
+package hr.spring.race.application.command.service.model.enums;
 
 import lombok.Getter;
 

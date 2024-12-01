@@ -1,6 +1,6 @@
 package hr.spring.race.application.command.service.model.entity;
 
-import hr.spring.race.application.command.service.util.enums.RaceDistance;
+import hr.spring.race.application.command.service.model.enums.RaceDistance;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

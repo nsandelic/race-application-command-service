@@ -1,7 +1,7 @@
 package hr.spring.race.application.command.service.model.entity;
 
 
-import hr.spring.race.application.command.service.util.enums.Role;
+import hr.spring.race.application.command.service.model.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
