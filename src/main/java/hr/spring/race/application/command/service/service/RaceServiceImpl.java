@@ -1,6 +1,6 @@
 package hr.spring.race.application.command.service.service;
 
-import hr.spring.race.application.command.service.Repository.RaceRepository;
+import hr.spring.race.application.command.service.repository.RaceRepository;
 import hr.spring.race.application.command.service.model.entity.Race;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

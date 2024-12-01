@@ -1,4 +1,4 @@
-package hr.spring.race.application.command.service.Repository;
+package hr.spring.race.application.command.service.repository;
 
 import hr.spring.race.application.command.service.model.entity.Race;
 import org.springframework.data.jpa.repository.JpaRepository;
