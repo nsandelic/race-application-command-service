@@ -8,6 +8,5 @@ import java.util.UUID;
 public interface ApplicationService {
 
     Application createApplication(Application application);
-    Application updateApplication(UUID id, Application application);
     Boolean deleteApplication(UUID id);
 }

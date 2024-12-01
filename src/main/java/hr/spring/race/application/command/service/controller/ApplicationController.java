@@ -27,15 +27,6 @@ public class ApplicationController {
         return new ResponseEntity<>(createdApplication, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Application> updateApplication(@PathVariable UUID id, @RequestBody @Valid Application application) {
-        Application updatedApplication = applicationService.updateApplication(id, application);
-        if(updatedApplication != null)
-            return new ResponseEntity<>(updatedApplication, HttpStatus.OK);
-        else
-            return ResponseEntity.notFound().build();
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteApplication(@PathVariable UUID id) {
         if (applicationService.deleteApplication(id)) {
