@@ -23,7 +23,6 @@ Application is currently setup for local deployment
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/nsandelic/race-application-command-service.git
-cd backend
 ```
 
 ### 2. Set java version
