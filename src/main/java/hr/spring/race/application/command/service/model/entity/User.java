@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,5 +38,7 @@ public class User {
     @Past(message = "Date of birth must be in the past.")
     @Column(nullable = false)
     private LocalDate dob;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 }

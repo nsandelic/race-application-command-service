@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/races")
+@CrossOrigin(origins = "*")
 public class RaceController {
 
     private final RaceService raceService;

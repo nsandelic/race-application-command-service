@@ -24,7 +24,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public Application createApplication(Application application) {
         Application createdApplication = applicationRepository.save(application);
-        messagingTemplate.convertAndSend("/topic/application-events", new ApplicationEvent("CRATE", createdApplication));
+        messagingTemplate.convertAndSend("/topic/application-events", new ApplicationEvent("CREATE", createdApplication));
         return createdApplication;
 
     }
