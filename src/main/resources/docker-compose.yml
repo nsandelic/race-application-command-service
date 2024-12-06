@@ -1,0 +1,66 @@
+version: '3.9'
+
+services:
+  # Command Service
+  command-service:
+    image: command-service:latest  # Replace with your Command service Docker image
+    container_name: command-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/race_application_command_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - command-db
+    networks:
+      - app-network
+
+  # Query Service
+  query-service:
+    image: query-service:latest  # Replace with your Query service Docker image
+    container_name: query-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jjdbc:postgresql://localhost:5432/race_application_command_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - query-db
+    networks:
+      - app-network
+
+  # Command Service Database
+  command-db:
+    image: postgres:15  # Use the official PostgreSQL image
+    container_name: command-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: race_application_command_db
+    volumes:
+      - command-db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  # Query Service Database
+  query-db:
+    image: postgres:15  # Use the official PostgreSQL image
+    container_name: query-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: race_application_query_db
+    volumes:
+      - query-db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  command-db-data:
+  query-db-data:
+
+networks:
+  app-network:
+    driver: bridge
