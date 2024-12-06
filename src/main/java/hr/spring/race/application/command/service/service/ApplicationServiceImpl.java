@@ -8,10 +8,12 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
 
+    private static final Logger logger = Logger.getLogger(ApplicationServiceImpl.class.getName());
     private ApplicationRepository applicationRepository;
     private final SimpMessagingTemplate messagingTemplate;
 
@@ -23,20 +25,25 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public Application createApplication(Application application) {
+        logger.info("ApplicationServiceImpl - > createApplication()");
         Application createdApplication = applicationRepository.save(application);
         messagingTemplate.convertAndSend("/topic/application-events", new ApplicationEvent("CREATE", createdApplication));
+        logger.info("ApplicationServiceImpl - > Application created and STOMP event sent");
         return createdApplication;
 
     }
 
     @Override
     public Boolean deleteApplication(UUID id) {
+        logger.info("ApplicationServiceImpl - > deleteApplication()");
         if (applicationRepository.existsById(id)) {
             Application deletedApplication = applicationRepository.findById(id).orElse(null);
             applicationRepository.deleteById(id);
             messagingTemplate.convertAndSend("/topic/application-events", new ApplicationEvent("DELETE", deletedApplication));
+            logger.info("ApplicationServiceImpl - > Application deleted and STOMP event sent");
             return true;
         }
+        logger.info("ApplicationServiceImpl - > Application not found");
         return false;
     }
 }

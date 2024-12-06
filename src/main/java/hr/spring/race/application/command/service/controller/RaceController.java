@@ -9,12 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/races")
 @CrossOrigin(origins = "http://localhost:4200")
 public class RaceController {
 
+    private static final Logger logger = Logger.getLogger(RaceController.class.getName());
     private final RaceService raceService;
 
     @Autowired
@@ -24,24 +26,34 @@ public class RaceController {
 
     @PostMapping
     public ResponseEntity<Race> createRace(@RequestBody @Valid Race race) {
+        logger.info("RaceController - > createRace()");
         Race createdRace = raceService.createRace(race);
+        logger.info("RaceController - > Returning: Race crated");
         return new ResponseEntity<>(createdRace, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Race> updateRace(@PathVariable UUID id, @RequestBody @Valid Race race) {
+        logger.info("RaceController - > getAllRaces()");
         Race updatedRace = raceService.updateRace(id, race);
-        if(updatedRace != null)
+        if(updatedRace != null) {
+            logger.info("RaceController - > Returning: Race updated");
             return new ResponseEntity<>(updatedRace, HttpStatus.OK);
-        else
+        }
+        else {
+            logger.info("RaceController - > Returning: Race not found");
             return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRace(@PathVariable UUID id) {
+        logger.info("RaceController - > getAllRaces()");
         if (raceService.deleteRace(id)) {
+            logger.info("RaceController - > Returning: Race deleted");
             return ResponseEntity.noContent().build();
         } else {
+            logger.info("RaceController - > Returning: Race not found");
             return ResponseEntity.notFound().build();
         }
     }
