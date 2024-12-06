@@ -1,10 +1,10 @@
 # Race Application Command Service
 
 This repository contains the backend services for our application, consisting of the Command and Query services.
-This service used to fetch Races and Applications, it's also used as STOMP consumer. Upon getting message about race 
-or application update, it updates its database.
+This service used for managing Races and Applications, it's also used as STOMP event sender. 
+Upon updating race or application it sends event about it
 ### NOTE
-Application is currently setup for local deplyment
+Application is currently setup for local deployment
 
 ## Prerequisites
 
@@ -13,15 +13,16 @@ Application is currently setup for local deplyment
 
 ## Key Features
 
-- GET all/one endpoints for Races and Applications
+- CREATE, UPDATE, DELETE endpoints for managing Races and Applications
 - Role based auth
-- STOMP event consumer
+- Login endpoint
+- STOMP event sender
 
 ## Setup Instructions
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/nsandelic/race-application-query-service.git
+git clone https://github.com/nsandelic/race-application-command-service.git
 cd backend
 ```
 
