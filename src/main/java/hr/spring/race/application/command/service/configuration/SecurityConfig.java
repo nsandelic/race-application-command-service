@@ -35,8 +35,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/ws/**").permitAll()
-                        .requestMatchers("/api/races/**").hasAnyRole(Role.ADMINISTRATOR.getLabel())
-                        .requestMatchers("/api/applications/**").hasAnyRole(Role.ADMINISTRATOR.getLabel(), Role.APPLICANT.getLabel())
+                        .requestMatchers("/api/races/**").permitAll()
+                        .requestMatchers("/api/applications/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
