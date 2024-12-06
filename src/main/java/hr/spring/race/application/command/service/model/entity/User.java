@@ -38,7 +38,10 @@ public class User {
     @Past(message = "Date of birth must be in the past.")
     @Column(nullable = false)
     private LocalDate dob;
+    @NotNull(message = "Role is required.")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+    @NotBlank(message = "Password is required.")
+    private String password;
 }
